@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        details {
+            border: 1px solid #aaa;
+            border-radius: 4px;
+            padding: .5em .5em 0;
+        }
+        summary {
+            font-weight: bold;
+            margin: -.5em -.5em 0;
+            padding: .5em;
+        }
+        details[open] {
+            padding: .5em;
+        }
+        details[open] summary {
+            border-bottom: 1px solid #aaa;
+            margin-bottom: .5em;
+        }
+        .languageListClass {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+        .languageListClass li {
+            margin-right: 2em;
+        }
+    </style>
+</head>
+<body>
+    <details>
+        <summary> Available languages </summary>
+        <ul class="languageListClass" id="languageList">
+        </ul>
+    </details>
+    <hr>
+    <form>
+        Language: <input type="text" id="chosenLanguage">
+        <input type="button" value="Use language" onclick="useChosenLanguage()">
+        <input type="button" value="Random language" onclick="useRandomLanguage()">
+    </form>
+    <div id="resultArea">
+        <p> Received word: <span id="receivedWord"></span></p>
+        <details>
+            <summary> Translated word </summary>
+            <p id="translatedWord"></p>
+            <p id="language"></p>
+        </details>
+    </div>
+    <hr>
+    <input type="button" value="Get metrics" onclick="getMetrics()">
+    <details>
+        <summary> Metrics </summary>
+        <ul id="metrics">        
+        </ul>
+    </details>
+</body>
+</html>
+
+<script src="frontend.js"></script>
