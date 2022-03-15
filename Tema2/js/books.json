@@ -1,0 +1,9 @@
+[
+    {
+        "id": 1,
+        "title": "Book1",
+        "author": "Author1",
+        "price": 100,
+        "genres": [1, 2, 3]
+    }
+]

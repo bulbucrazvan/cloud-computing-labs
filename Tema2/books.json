@@ -1,0 +1,52 @@
+[
+    {
+        "id": 1,
+        "title": "Book1",
+        "author": "Author1",
+        "price": 500,
+        "genres": [
+            1,
+            3
+        ]
+    },
+    {
+        "id": 2,
+        "title": "TestBookUpdate",
+        "author": "TestAuthorUpdate",
+        "price": 500,
+        "genres": [
+            1,
+            3
+        ]
+    },
+    {
+        "id": 3,
+        "author": "TestAuthor",
+        "title": "TestBook",
+        "price": 500,
+        "genres": [
+            1,
+            2
+        ]
+    },
+    {
+        "id": 4,
+        "author": "TestAuthor",
+        "title": "TestBook",
+        "price": 500,
+        "genres": [
+            1,
+            2
+        ]
+    },
+    {
+        "id": 5,
+        "author": "TestAuthor",
+        "title": "TestBook",
+        "price": 500,
+        "genres": [
+            1,
+            2
+        ]
+    }
+]
