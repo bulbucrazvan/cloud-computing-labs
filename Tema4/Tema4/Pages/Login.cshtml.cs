@@ -2,15 +2,21 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.ComponentModel.DataAnnotations;
 using Tema4.Controllers;
+using Tema4.Models;
 
 namespace Tema4.Pages
 {
     public class LoginModel : PageModel
     {
+        private readonly IAuthenticationController authenticationController;
+
         [BindProperty]
         public Credential Credential { get; set; }
 
-
+        public LoginModel(IAuthenticationController authenticationController):base()
+        {
+            this.authenticationController = authenticationController;
+        }
 
         public void OnGet()
         {
@@ -20,12 +26,13 @@ namespace Tema4.Pages
             {
                
             }*/
+            
 
         }
 
-        public void OnPost()
+        public async void OnPost()
         {
-
+            User user = await authenticationController.UserExistAsync(Credential.Email);
         }
     }
 

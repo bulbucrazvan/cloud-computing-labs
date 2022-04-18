@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Tema4.Controllers;
 
 namespace Tema4.Pages
 {
@@ -8,13 +9,20 @@ namespace Tema4.Pages
         [BindProperty]
         public Credential Credential { get; set; }
 
+        private readonly IAuthenticationController authenticationController;
+
+        public RegisterModel(IAuthenticationController authenticationController):base()
+        {
+            this.authenticationController = authenticationController;
+        }
+
         public void OnGet()
         {
         }
 
-        public void OnPost()
+        public async void OnPost()
         {
-
+            await authenticationController.Register(Credential.Email);
         }
     }
 }

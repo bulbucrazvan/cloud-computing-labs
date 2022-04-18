@@ -84,7 +84,7 @@ namespace Tema4.Pages
                 return Page();
             }
         }
-            async static Task SynthesizeToSpeaker()
+        async static Task SynthesizeToSpeaker()
         {
             //Find your key and resource region under the 'Keys and Endpoint' tab in your Speech resource in Azure Portal
             //Remember to delete the brackets <> when pasting your key and region!

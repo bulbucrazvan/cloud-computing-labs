@@ -5,7 +5,7 @@ using Tema4.Models;
 
 namespace Tema4.Controllers
 {
-    public class AuthenticationController
+    public class AuthenticationController: IAuthenticationController
     {
         private readonly MyDbContext context;
 

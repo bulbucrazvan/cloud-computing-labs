@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Azure;
 using Microsoft.Extensions.Configuration;
+using Tema4.Controllers;
 using Tema4.Data;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,6 +15,8 @@ builder.Services.AddAzureClients(clientBuilder =>
 });
 
 builder.Services.AddDbContext<MyDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("MyDbConnection")));
+
+builder.Services.AddTransient<IAuthenticationController, AuthenticationController>();
 
 var app = builder.Build();
 
