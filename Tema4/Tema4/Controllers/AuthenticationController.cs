@@ -24,5 +24,14 @@ namespace Tema4.Controllers
             }
         }
 
+        public async Task<User> UserExistAsync(string email)
+        {
+            if(await context.Users.AnyAsync(user => user.Email == email))
+            {
+                return new User { Email = email };
+            }
+            return new User { Email = "" };
+        }
+
     }
 }

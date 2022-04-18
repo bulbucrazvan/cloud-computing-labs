@@ -8,5 +8,10 @@ namespace Tema4.Data
         public MyDbContext(DbContextOptions<MyDbContext> options) : base(options) { }
 
         public DbSet<User> Users { get; set; }
+
+        internal bool Find(Func<object, bool> p)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

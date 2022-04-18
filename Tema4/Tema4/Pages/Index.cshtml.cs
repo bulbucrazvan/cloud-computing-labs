@@ -14,7 +14,15 @@ namespace Tema4.Pages
         private static readonly string endpoint = "https://api.cognitive.microsofttranslator.com/";
         private static readonly string location = "westeurope";
         private static SpeechConfig speechConfig = SpeechConfig.FromSubscription("4a8cea96a0e344dc8791d0396177d27c", "germanywestcentral");
-        public string MyProperty { get; set; }
+        public Result MyResult { get; set; }
+        [BindProperty]
+        public string From { get; set; }
+        [BindProperty]
+        public string To { get; set; }
+        [BindProperty]
+        public string Input { get; set; }
+        [BindProperty]
+        public string Output { get; set; }
 
         public IndexModel(ILogger<IndexModel> logger)
         {
@@ -23,8 +31,13 @@ namespace Tema4.Pages
 
         public async Task<IActionResult> OnGet()
         {
-            string route = "/translate?api-version=3.0&from=en&to=de&to=it";
-            string textToTranslate = "Hello, world!";
+            From = "ro";
+            To = "en";
+            Input = "Acesta este un test";
+            Output = "Acesta este un test";
+            string route = "/translate?api-version=3.0&from="   + From
+                                                                + "&to=" + To;
+            string textToTranslate = Input;
             object[] body = new object[] { new { Text = textToTranslate } };
             var requestBody = JsonConvert.SerializeObject(body);
 
@@ -39,12 +52,39 @@ namespace Tema4.Pages
 
                 HttpResponseMessage response = await client.SendAsync(request).ConfigureAwait(false);
                 string result = await response.Content.ReadAsStringAsync();
-                MyProperty = result;
+                MyResult = JsonConvert.DeserializeObject<List<Result>>(result)[0];
+                Output = MyResult.translations[0].Text;
                 await RecognizeFromMic(speechConfig);
                 return Page();
             }
         }
-        async static Task SynthesizeToSpeaker()
+
+        public async Task<IActionResult> OnPost()
+        {
+            string route = "/translate?api-version=3.0&from=" + From
+                                                                + "&to=" + To;
+            string textToTranslate = Input;
+            object[] body = new object[] { new { Text = textToTranslate } };
+            var requestBody = JsonConvert.SerializeObject(body);
+
+            using (var client = new HttpClient())
+            using (var request = new HttpRequestMessage())
+            {
+                request.Method = HttpMethod.Post;
+                request.RequestUri = new Uri(endpoint + route);
+                request.Content = new StringContent(requestBody, Encoding.UTF8, "application/json");
+                request.Headers.Add("Ocp-Apim-Subscription-Key", subscriptionKey);
+                request.Headers.Add("Ocp-Apim-Subscription-Region", location);
+
+                HttpResponseMessage response = await client.SendAsync(request).ConfigureAwait(false);
+                string result = await response.Content.ReadAsStringAsync();
+                MyResult = JsonConvert.DeserializeObject<List<Result>>(result)[0];
+                Output = MyResult.translations[0].Text;
+                await RecognizeFromMic(speechConfig);
+                return Page();
+            }
+        }
+            async static Task SynthesizeToSpeaker()
         {
             //Find your key and resource region under the 'Keys and Endpoint' tab in your Speech resource in Azure Portal
             //Remember to delete the brackets <> when pasting your key and region!
@@ -63,5 +103,17 @@ namespace Tema4.Pages
             var result = await recognizer.RecognizeOnceAsync();
             Console.WriteLine($"RECOGNIZED: Text={result.Text}");
         }
+    }
+
+    public class Result
+    {
+        public class Translated
+        {
+            public string Text { get; set; }
+            public string To { get; set; }
+        }
+        public List<Translated> translations{ get; set; }
+
+        
     }
 }
