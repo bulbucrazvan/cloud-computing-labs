@@ -1,0 +1,7 @@
+C:\University\CC\Tema4\Tema4\obj\Release\net6.0\PubTmp\Out\Tema4.exe
+C:\University\CC\Tema4\Tema4\obj\Release\net6.0\PubTmp\Out\appsettings.Development.json
+C:\University\CC\Tema4\Tema4\obj\Release\net6.0\PubTmp\Out\appsettings.json
+C:\University\CC\Tema4\Tema4\obj\Release\net6.0\PubTmp\Out\Tema4.dll
+C:\University\CC\Tema4\Tema4\obj\Release\net6.0\PubTmp\Out\Tema4.deps.json
+C:\University\CC\Tema4\Tema4\obj\Release\net6.0\PubTmp\Out\Tema4.runtimeconfig.json
+C:\University\CC\Tema4\Tema4\obj\Release\net6.0\PubTmp\Out\Tema4.pdb
