@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Claudiu\\Desktop\\Facultate\\SEM2\\CC\\cloud-computing-labs\\Tema4\\Tema4\\Tema4.csproj": {}
+    "C:\\Users\\rbulb\\Source\\Repos\\bulbucrazvan\\cloud-computing-labs\\Tema4\\Tema4\\Tema4.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Claudiu\\Desktop\\Facultate\\SEM2\\CC\\cloud-computing-labs\\Tema4\\Tema4\\Tema4.csproj": {
+    "C:\\Users\\rbulb\\Source\\Repos\\bulbucrazvan\\cloud-computing-labs\\Tema4\\Tema4\\Tema4.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Claudiu\\Desktop\\Facultate\\SEM2\\CC\\cloud-computing-labs\\Tema4\\Tema4\\Tema4.csproj",
+        "projectUniqueName": "C:\\Users\\rbulb\\Source\\Repos\\bulbucrazvan\\cloud-computing-labs\\Tema4\\Tema4\\Tema4.csproj",
         "projectName": "Tema4",
-        "projectPath": "C:\\Users\\Claudiu\\Desktop\\Facultate\\SEM2\\CC\\cloud-computing-labs\\Tema4\\Tema4\\Tema4.csproj",
-        "packagesPath": "C:\\Users\\Claudiu\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Claudiu\\Desktop\\Facultate\\SEM2\\CC\\cloud-computing-labs\\Tema4\\Tema4\\obj\\",
+        "projectPath": "C:\\Users\\rbulb\\Source\\Repos\\bulbucrazvan\\cloud-computing-labs\\Tema4\\Tema4\\Tema4.csproj",
+        "packagesPath": "C:\\Users\\rbulb\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\rbulb\\Source\\Repos\\bulbucrazvan\\cloud-computing-labs\\Tema4\\Tema4\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Claudiu\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\rbulb\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [

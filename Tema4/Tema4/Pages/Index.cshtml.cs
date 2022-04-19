@@ -16,47 +16,17 @@ namespace Tema4.Pages
         private static SpeechConfig speechConfig = SpeechConfig.FromSubscription("4a8cea96a0e344dc8791d0396177d27c", "germanywestcentral");
         public Result MyResult { get; set; }
         [BindProperty]
-        public string From { get; set; }
+        public string From { get; set; } = "ro";
         [BindProperty]
-        public string To { get; set; }
+        public string To { get; set; } = "de";
         [BindProperty]
-        public string Input { get; set; }
+        public string Input { get; set; } = " ";
         [BindProperty]
         public string Output { get; set; }
 
         public IndexModel(ILogger<IndexModel> logger)
         {
             _logger = logger;
-        }
-
-        public async Task<IActionResult> OnGet()
-        {
-            From = "ro";
-            To = "en";
-            Input = "Acesta este un test";
-            Output = "Acesta este un test";
-            string route = "/translate?api-version=3.0&from="   + From
-                                                                + "&to=" + To;
-            string textToTranslate = Input;
-            object[] body = new object[] { new { Text = textToTranslate } };
-            var requestBody = JsonConvert.SerializeObject(body);
-
-            using (var client = new HttpClient())
-            using (var request = new HttpRequestMessage())
-            {
-                request.Method = HttpMethod.Post;
-                request.RequestUri = new Uri(endpoint + route);
-                request.Content = new StringContent(requestBody, Encoding.UTF8, "application/json");
-                request.Headers.Add("Ocp-Apim-Subscription-Key", subscriptionKey);
-                request.Headers.Add("Ocp-Apim-Subscription-Region", location);
-
-                HttpResponseMessage response = await client.SendAsync(request).ConfigureAwait(false);
-                string result = await response.Content.ReadAsStringAsync();
-                MyResult = JsonConvert.DeserializeObject<List<Result>>(result)[0];
-                Output = MyResult.translations[0].Text;
-                await RecognizeFromMic(speechConfig);
-                return Page();
-            }
         }
 
         public async Task<IActionResult> OnPost()
@@ -78,30 +48,63 @@ namespace Tema4.Pages
 
                 HttpResponseMessage response = await client.SendAsync(request).ConfigureAwait(false);
                 string result = await response.Content.ReadAsStringAsync();
-                MyResult = JsonConvert.DeserializeObject<List<Result>>(result)[0];
-                Output = MyResult.translations[0].Text;
-                await RecognizeFromMic(speechConfig);
+                try
+                {
+                    var jsonResult = JsonConvert.DeserializeObject<List<Result>>(result);
+
+                    MyResult = JsonConvert.DeserializeObject<List<Result>>(result)[0];
+                    Output = MyResult.translations[0].Text;
+                }
+                catch (Exception ex) { }
+                
                 return Page();
             }
         }
-        async static Task SynthesizeToSpeaker()
+        async Task SynthesizeToSpeaker(string text, string to)
         {
-            //Find your key and resource region under the 'Keys and Endpoint' tab in your Speech resource in Azure Portal
-            //Remember to delete the brackets <> when pasting your key and region!
+            Console.WriteLine(text);
+            if (text != null)
+            {
+                Console.WriteLine(text);
+            }
+            else
+            {
+                Console.WriteLine("null");
+            }
             var config = SpeechConfig.FromSubscription("4a8cea96a0e344dc8791d0396177d27c", "germanywestcentral");
-            using var synthesizer = new SpeechSynthesizer(config);
-            await synthesizer.SpeakTextAsync("Enter some text to synthesize.");
+            config.SpeechSynthesisLanguage = to + "-" + to.ToUpper();
+            var synthesizer = new SpeechSynthesizer(config);
+            await synthesizer.SpeakTextAsync(text);
         }
 
-        async static Task RecognizeFromMic(SpeechConfig speechConfig)
+        async Task<string> RecognizeFromMic(SpeechConfig speechConfig)
         {
-            using var audioConfig = AudioConfig.FromDefaultMicrophoneInput();
-            using var recognizer = new SpeechRecognizer(speechConfig, audioConfig);
-
-            //Asks user for mic input and prints transcription result on screen
-            Console.WriteLine("Speak into your microphone.");
+            var audioConfig = AudioConfig.FromDefaultMicrophoneInput();
+            speechConfig.SpeechRecognitionLanguage = From + "-" + From.ToUpper();
+            var recognizer = new SpeechRecognizer(speechConfig, audioConfig);
             var result = await recognizer.RecognizeOnceAsync();
-            Console.WriteLine($"RECOGNIZED: Text={result.Text}");
+            return result.Text;
+        }
+
+        public async Task<PageResult> OnGetListen(string Input, string Output, string From, string To)
+        {
+            this.From = From;
+            this.To = To;
+            this.Input = Input;
+            this.Output = Output;
+            var text = await RecognizeFromMic(speechConfig);
+            this.Input = text;
+            return Page();
+        }
+
+        public async Task<PageResult> OnGetSpeak(string Output, string Input, string From, string To)
+        {
+            this.From = From;
+            this.To = To;
+            this.Output = Output;
+            this.Input = Input;
+            await SynthesizeToSpeaker(Output, To);
+            return Page();
         }
     }
 

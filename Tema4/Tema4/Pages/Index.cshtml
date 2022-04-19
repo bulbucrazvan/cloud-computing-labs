@@ -6,6 +6,8 @@
 
 <div class="text-center">
     <h1 class="h1">Tema 4</h1>
+    
+    
     <div>
         <form method="post">
             <div style="display: flex; justify-content: center; padding:20px">
@@ -130,9 +132,8 @@
              <div  style="display: flex; justify-content: center; padding:20px">
                  <p>Input:  </p>
                  <input asp-for="Input" type="text" class="col-12"/>
-                 
              </div>
-
+             <a asp-page="Index" asp-page-handler="Listen" asp-route-input="@Model.Input" asp-route-from="@Model.From" asp-route-to="@Model.To" asp-route-output="@Model.Output">Speak</a>
               <div style="display: flex; justify-content: center; padding:20px">
                 <div>
                     <p>To:  </p>
@@ -259,7 +260,7 @@
              <div class="col-2" style="padding:20px">
 				<input type="submit" class="btn btn-primary" value="Translate" />
 			</div>
-        
+            <a asp-page="Index" asp-page-handler="Speak" asp-route-output="@Model.Output" asp-route-to="@Model.To" asp-route-from="@Model.From" asp-route-input="@Model.Input">Listen</a>
          </form>
     </div>
 </div>
